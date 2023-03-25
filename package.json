@@ -1,0 +1,30 @@
+{
+  "name": "nasa-daily-image-checker",
+  "version": "1.0.0",
+  "description": "Displays daily image from NASA",
+  "main": "backend/server.js",
+  "repository": "https://github.com/Basit-Balogun10/nasa-daily-image-checker.git",
+  "author": "Basit Balogun",
+  "license": "MIT",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend"
+  },
+  "dependencies": {
+    "@types/node": "^18.15.5",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "express-ip-access-control": "^1.1.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.2",
+    "typescript": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1"
+  }
+}
