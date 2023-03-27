@@ -8,7 +8,7 @@ import { generateToken, generateRandomCharacters } from "../utils";
 import { encryptData, decryptData, decryptState } from "../utils";
 
 // @desc    Register new user
-// @route   POST /api/users
+// @route   POST /api/v1/auth/signup
 // @access  Public
 export const registerUser = asyncHandler(async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
@@ -62,7 +62,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 });
 
 // @desc    Authenticate a user
-// @route   POST /api/users/login
+// @route   POST /api/v1/auth/login
 // @access  Public
 export const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -96,7 +96,7 @@ export const loginUser = asyncHandler(async (req, res) => {
 });
 
 // @desc Signup or Login with Google
-// @route GET /api/users/google
+// @route GET /api/v1/auth/google
 // @access Public
 export const authenticateWithGoogle = asyncHandler(async (req, res) => {
     const GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";

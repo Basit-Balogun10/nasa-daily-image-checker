@@ -1,12 +1,14 @@
-import express, { Router } from "express";
+import express from "express";
 import {
   authenticateWithGoogle,
   loginUser,
   registerUser,
 } from "../controllers/authController";
 
-export const router = Router();
+const router = express.Router();
 
 router.post('/signup', registerUser)
 router.post('/login', loginUser)
 router.post("/google", authenticateWithGoogle);
+
+module.exports = router;

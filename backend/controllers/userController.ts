@@ -3,7 +3,7 @@ import { IUserInfoRequest } from "../middleware/authMiddleware";
 import asyncHandler from "express-async-handler";
 
 // @desc    Get user data
-// @route   GET /api/users/me
+// @route   GET /api/v1/users/me
 // @access  Private
 export const getMe = asyncHandler(
     async (req: IUserInfoRequest, res: Response) => {

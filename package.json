@@ -7,10 +7,10 @@
     "author": "Basit Balogun",
     "license": "MIT",
     "scripts": {
-        "start": "node dist/server.js",
-        "server": "nodemon dist/server.js",
-        "client": "yarn start --prefix frontend",
-        "dev": "concurrently \"eslint -c eslint.js ---fix\" \"yarn tsc --watch\" \"yarn run server\" \"yarn run client\""
+        "start": "ts-node backend/server.ts",
+        "server": "nodemon backend/server.ts",
+        "client": "yarn --cwd frontend start",
+        "dev": "concurrently \"eslint -c eslint.js --fix\" \"yarn run server\" \"yarn run client\""
     },
     "dependencies": {
         "@types/bcryptjs": "^2.4.2",

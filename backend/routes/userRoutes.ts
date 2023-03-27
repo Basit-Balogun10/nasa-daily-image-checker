@@ -1,7 +1,9 @@
-import express, { Router } from "express";
+import express from "express";
 
 import { getMe } from '../controllers/userController'
 import { protect } from '../middleware/authMiddleware'
 
-export const router = Router();
+const router = express.Router();
 router.get('/me', protect, getMe)
+
+module.exports = router;
