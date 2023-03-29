@@ -1,17 +1,9 @@
 import crypto from "crypto";
 
-const initVector = process.env.INIT_VECTOR || "a";
-const secretKey = process.env.SECRET_KEY || "a";
-const algorithm = process.env.ENCRYPTION_ALGORITHM || "a";
-const charEncoding = process.env.CHARACTER_ENCODING || "a";
-
-console.log(
-    initVector,
-    secretKey,
-    algorithm,
-    charEncoding,
-    "ISAC ---------------"
-);
+const initVector = process.env.INIT_VECTOR;
+const secretKey = process.env.SECRET_KEY;
+const algorithm = process.env.ENCRYPTION_ALGORITHM;
+const charEncoding = process.env.CHARACTER_ENCODING;
 
 if (!initVector || !secretKey || !algorithm || !charEncoding) {
     throw new Error(
@@ -46,7 +38,9 @@ export const decryptData = (encryptedData: string) => {
 
 export const decryptState = (encryptedState: string) => {
     const rawState = decryptData(encryptedState);
+    console.log("RAW STATE", rawState);
     // const state = decodeURI(rawState).split(',')[0]
+    console.log("DECODE URI", decodeURI(rawState));
     const isSignup = JSON.parse(decodeURI(rawState).split(",")[1]);
 
     return { isSignup };

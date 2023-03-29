@@ -11,7 +11,7 @@ export const errorHandler = (
     res.status(statusCode);
 
     res.json({
-        error: err.message,
+        message: err.message,
         stack: process.env.NODE_ENV === "production" ? null : err.stack,
     });
 };

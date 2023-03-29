@@ -8,8 +8,8 @@ export class GoogleAuthService {
     static GOOGLE_USER_INFO_URL =
         "https://www.googleapis.com/oauth2/v3/userinfo";
 
-    static validateAccessToken(accessToken: string) {
-        axios
+    static async validateAccessToken(accessToken: string) {
+        await axios
             .get(`${this.GOOGLE_ID_TOKEN_INFO_URL}?access_token=${accessToken}`)
             .then((res) => {
                 if (res.status !== 200) {
@@ -22,11 +22,12 @@ export class GoogleAuthService {
                 }
             })
             .catch((err) => {
+                console.log("LINE 27", err, "LINE 27");
                 throw new Error(err);
             });
     }
 
-    static getTokens(code: string, redirectUri: string) {
+    static async getTokens(code: string, redirectUri: string) {
         const request_data = {
             code: code,
             client_id: process.env.GOOGLE_OAUTH2_CLIENT_ID,
@@ -34,11 +35,13 @@ export class GoogleAuthService {
             redirect_uri: redirectUri,
             grant_type: "authorization_code",
         };
+        console.log(request_data);
 
         let accessToken = "";
         let refreshToken = "";
+        console.log("IT'S IN HERE");
 
-        axios
+        await axios
             .post(this.GOOGLE_ACCESS_TOKEN_OBTAIN_URL, request_data)
             .then((res) => {
                 if (res.status !== 200) {
@@ -46,28 +49,33 @@ export class GoogleAuthService {
                         "Failed to obtain access token from Google"
                     );
                 }
+                console.log('TOKEN DATA', res.data)
 
                 accessToken = res.data["access_token"];
                 refreshToken = res.data["refresh_token"];
             })
             .catch((err) => {
+                console.log('LINE 60', err);
                 throw new Error(err);
             });
 
+        console.log("ACCESS & REFRESH", accessToken, refreshToken);
+        
         return { accessToken, refreshToken };
     }
 
-    static getUserInfo(accessToken: string) {
+    static async getUserInfo(accessToken: string) {
         let userInfo: Record<string, string> = {};
 
-        axios
-            .get(`${this.GOOGLE_ID_TOKEN_INFO_URL}?access_token=${accessToken}`)
+        await axios
+            .get(`${this.GOOGLE_USER_INFO_URL}?access_token=${accessToken}`)
             .then((res) => {
                 if (res.status !== 200) {
                     throw new Error("Failed to obtain user info from Google");
                 }
 
                 userInfo = res.data;
+                console.log('USER INFO', userInfo, res.data)
             })
             .catch((err) => {
                 throw new Error(err);

@@ -7,7 +7,6 @@ interface tokenPayload {
     id: mongoose.Types.ObjectId;
     email: string;
     iat: number;
-    exp: number
 }
 
 interface User extends IUser {
@@ -21,11 +20,10 @@ export const generateToken = (user: User) => {
         id: user._id,
         email: user.email,
         iat: issuedAt,
-        exp: issuedAt + 7 * 24 * 60 * 60 * 1000, //Token expires in 7 days
     };
 
-    return jwt.sign(tokenPayload, process.env.JWT_SECRET as string, {
-        expiresIn: "30d",
+    return jwt.sign(tokenPayload, (process.env.JWT_SECRET as string), {
+        expiresIn: "7d",
     });
 };
 

@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import react, {useState, useEffect} from "react"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
+import Header from './components/Header'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import { UserProvider } from './contexts/UserContext'
+import type {User} from './contexts/UserContext'
 
 function App() {
+  const [user, setUser] = useState<User | null>(null)
+
+  const handleUserChange = (user: User | null) => {
+    localStorage.setItem("NDIC-user", JSON.stringify(user))
+    setUser(user);
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem("NDIC-user")) {
+        setUser(JSON.parse(localStorage.getItem("NDIC-user")!));
+    }
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <UserProvider value={{ user, handleUserChange }}>
+          <Router>
+              <div className="container">
+                  <Header />
+                  <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/login" element={<Login />} />
+                      <Route path="/register" element={<Register />} />
+                  </Routes>
+              </div>
+          </Router>
+          <ToastContainer />
+      </UserProvider>
   );
 }
 
-export default App;
+export default App
