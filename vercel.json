@@ -1,3 +1,9 @@
 {
-    "rewrites": [{ "source": "/api/server.ts", "destination": "/api" }]
+    "functions": {
+        "api/server.ts": {
+        "memory": 3008,
+        "maxDuration": 10
+        }
+    }
 }
+
