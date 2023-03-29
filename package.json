@@ -7,8 +7,8 @@
     "author": "Basit Balogun",
     "license": "MIT",
     "scripts": {
-        "start": "ts-node backend/server.ts",
-        "server": "nodemon backend/server.ts",
+        "start": "ts-node api/server.ts",
+        "server": "nodemon api/server.ts",
         "client": "yarn --cwd frontend start",
         "dev": "concurrently \"eslint -c eslint.js --fix\" \"yarn run server\" \"yarn run client\""
     },
