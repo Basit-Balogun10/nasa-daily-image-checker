@@ -3,7 +3,7 @@ import { connect } from "mongoose";
 
 const connectDB = async () => {
     try {
-        const conn = await connect("mongodb+srv://basitbalogun10:CYgM0wCBgYLGZnll@cluster0.ggdjua0.mongodb.net/?retryWrites=true&w=majority");
+        const conn = await connect(process.env.MONGO_URI as string);
 
         console.log(
             colors.cyan.underline(`MongoDB Connected: ${conn.connection.host}`)
